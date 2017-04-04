@@ -1,6 +1,8 @@
 var makeFlipTurnDancer = function(top, left, timeBetweenSteps) {
   makeDancer.call(this, top, left, timeBetweenSteps);
-  this.$node = $('<div class="flipTurnDancer"></div>');
+  this.sound = 'flipTurnDancer';
+  this.$node = $('<div data-sound="' + this.sound + '" class="flipTurnDancer"></div>');
+  
   //var blinkyDancer = new makeDancer(top, left, timeBetweenSteps);
 
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
@@ -25,3 +27,8 @@ makeFlipTurnDancer.prototype.step = function() {
     var bind = this.step.bind(this);
     setTimeout(bind, this.timeBetweenSteps);
   };
+
+makeFlipTurnDancer.prototype.lineUp = function(top, left) {
+   this.setPosition(top, left);
+   this.$node.css('background-color', this._randomColor());
+};

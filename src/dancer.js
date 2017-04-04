@@ -6,6 +6,8 @@ var makeDancer = function(top, left, timeBetweenSteps) {
   this.top = top;
   this.left = left;
   this.timeBetweenSteps = timeBetweenSteps;
+  this.sound = '';
+
 };
 
 makeDancer.prototype.step = function() {
@@ -23,6 +25,12 @@ makeDancer.prototype.setPosition = function(top, left) {
     this.$node.css(styleSettings);
   };
 
+makeDancer.prototype._randomColor = function (){
+  return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+}
+
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
 //makeDancer.prototype.setPosition(20, 20);
+
+

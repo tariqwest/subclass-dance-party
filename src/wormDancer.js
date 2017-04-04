@@ -1,6 +1,8 @@
 var makeWormDancer = function(top, left, timeBetweenSteps) {
   makeDancer.call(this, top, left, timeBetweenSteps);
-  this.$node = $('<div class="wormDancer"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
+  this.sound = 'wormDancer';
+  this.$node = $('<div data-sound="' + this.sound + '" class="wormDancer"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
+  
   //var blinkyDancer = new makeDancer(top, left, timeBetweenSteps);
 
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
@@ -28,3 +30,9 @@ makeWormDancer.prototype.step = function() {
     var bind = this.step.bind(this);
     setTimeout(bind, this.timeBetweenSteps);
   };
+
+
+makeWormDancer.prototype.lineUp = function(top, left) {
+   this.setPosition(top, left);
+    $(this.$node).find('div').css('background-color', this._randomColor());
+};

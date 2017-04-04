@@ -10,31 +10,36 @@ body{
 body, a:link, a:visited, a:active{
   color: lightblue;
 }
-.title, .addDancerButton, .lineupDancerButton{
+.title, .addDancerButton, .lineupDancerButton, .pairDancerButton{
   padding:5px 12px;
   float:right;
 }
+
 .topbar{
   height:32px;
   background-color: #555;
 }
+
 .title{
   background-color: #777;
 }
+
+.enlarge-blinky{
+  border-width: 20px !important;
+  border-radius: 20px !important;
+}
+
 .blinkyDancer{
   border:10px solid red;
   border-radius:10px;
   position:absolute;
 }
 
-.dancer{
-
-}
-
-.enlarge{
+.enlarge {
   width: 60px !important;
   height: 60px !important;
 }
+
 
 .flipTurnDancer{
   width: 40px;

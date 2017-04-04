@@ -35,55 +35,64 @@ $(document).ready(function() {
 
   });
 
-$('.lineupDancerButton').on('click', function(event) {
-    var top = $("body").height() / 2;
-    var left = 50;
-    for(var i=0; i<window.dancers.length; i++){
-      window.dancers[i].setPosition(top, left);
-      left += 100;
-      if(window.dancers[i] instanceof makeBlinkyDancer) {
-        var css = {'display': 'flex', 'align-items': 'center'};
-        $(window.dancers[i]).css(css);
+  $('.lineupDancerButton').on('click', function(event) {
+      var top = $("body").height() / 2;
+      var left = 50;
+      for(var i=0; i<window.dancers.length; i++){
+        //window.dancers[i].setPosition(top, left);
+        window.dancers[i].lineUp(top, left);
+        left += 100;
+        if(window.dancers[i] instanceof makeBlinkyDancer) {
+          var css = {'display': 'flex', 'align-items': 'center'};
+          $(window.dancers[i]).css(css);
+        }
       }
+    });
+
+  $('.pairDancerButton').on('click', function(event) {
+    for (var i = 0; i < window.dancers.length - 1; i+=2) {
+      var randomTop = Math.random() * $('body').height();
+      var randomLeft = Math.random() * $('body').width();
+      window.dancers[i].setPosition(randomTop, randomLeft);
+      window.dancers[i + 1]. setPosition(randomTop + 30, randomLeft + 30);
     }
+    if (window.dancers.length % 2 === 1) {
+      var lost = window.dancers[window.dancers.length - 1];
+      for(var i=0; i<20; i++){
+        lost.setPosition(Math.random() * $('body').height(), Math.random() * $('body').width());
+      }
+    } 
   });
 
-var enlarge = function() {
-  if($(this).hasClass('blinkyDancer')){
-    $(this).css('border', '20px');
-    $(this).css('border-radius', '20px');
-  } else {
-    $(this).toggleClass('enlarge');
-  }
-}
 
-var reset = function() {
-  if($(this).hasClass('blinkyDancer')){
-    $(this).css('border', '10px');
-    $(this).css('border-radius', '10px');
-  } else {
-    $(this).toggleClass('enlarge');
-  }
-}
+  var dancerSound;
 
+  $('body').on('mouseenter', '.dancer', function() {
+    if($(this).hasClass('blinkyDancer')){
+      $(this).toggleClass('enlarge-blinky');
+    } else {
+      $(this).toggleClass('enlarge');
+    }
 
-$('body').on('mouseenter', '.dancer', function() {
-  if($(this).hasClass('blinkyDancer')){
-    $(this).css('border-width', '20px');
-    $(this).css('border-radius', '18px');
-  } else {
-    $(this).toggleClass('enlarge');
-  }
-});
+    dancerSound = new Audio($(this).data('sound') + '.wav');
 
-$('body').on('mouseleave', '.dancer', function() {
-  if($(this).hasClass('blinkyDancer')){
-    $(this).css('border-width', '10px');
-    $(this).css('border-radius', '10px');
-  } else {
-    $(this).toggleClass('enlarge');
-  }
-});
+    dancerSound.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.play();
+    }, false);
+
+    dancerSound.play();
+  });
+
+  $('body').on('mouseleave', '.dancer', function() {
+    if($(this).hasClass('blinkyDancer')){
+      $(this).toggleClass('enlarge-blinky');
+    } else {
+      $(this).toggleClass('enlarge');
+    }
+
+    dancerSound.pause();
+  });
 
 
 

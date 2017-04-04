@@ -1,6 +1,9 @@
 var makeBlinkyDancer = function(top, left, timeBetweenSteps) {
   makeDancer.call(this, top, left, timeBetweenSteps);
-  this.$node = $('<span class="blinkyDancer"></span>');
+  this.sound = 'blinkyDancer';
+  this.$node = $('<span data-sound="' + this.sound + '" class="blinkyDancer"></span>');
+  
+
 
   //var blinkyDancer = new makeDancer(top, left, timeBetweenSteps);
 
@@ -26,3 +29,9 @@ makeBlinkyDancer.prototype.step = function() {
     var bind = this.step.bind(this);
     setTimeout(bind, this.timeBetweenSteps);
   };
+
+makeBlinkyDancer.prototype.lineUp = function(top, left) {
+   this.setPosition(top, left);
+   this.$node.css('border-color', this._randomColor());
+};
+
