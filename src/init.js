@@ -1,7 +1,7 @@
 $(document).ready(function() {
   window.dancers = [];
 
-  $('a').on('click', function(event) {
+  $('.addDancerButton').on('click', function(event) {
     /* This function sets up the click handlers for the create-dancer
      * buttons on dancefloor.html. You should only need to make one small change to it.
      * As long as the "data-dancer-maker-function-name" attribute of a
@@ -28,11 +28,64 @@ $(document).ready(function() {
       1000
     );
     dancer.setPosition(dancer.top, dancer.left);
-
+    $(dancer.$node).addClass('dancer');
     $('body').append(dancer.$node);
-
+    window.dancers.push(dancer);
     dancer.step();
 
   });
+
+$('.lineupDancerButton').on('click', function(event) {
+    var top = $("body").height() / 2;
+    var left = 50;
+    for(var i=0; i<window.dancers.length; i++){
+      window.dancers[i].setPosition(top, left);
+      left += 100;
+      if(window.dancers[i] instanceof makeBlinkyDancer) {
+        var css = {'display': 'flex', 'align-items': 'center'};
+        $(window.dancers[i]).css(css);
+      }
+    }
+  });
+
+var enlarge = function() {
+  if($(this).hasClass('blinkyDancer')){
+    $(this).css('border', '20px');
+    $(this).css('border-radius', '20px');
+  } else {
+    $(this).toggleClass('enlarge');
+  }
+}
+
+var reset = function() {
+  if($(this).hasClass('blinkyDancer')){
+    $(this).css('border', '10px');
+    $(this).css('border-radius', '10px');
+  } else {
+    $(this).toggleClass('enlarge');
+  }
+}
+
+
+$('body').on('mouseenter', '.dancer', function() {
+  if($(this).hasClass('blinkyDancer')){
+    $(this).css('border-width', '20px');
+    $(this).css('border-radius', '18px');
+  } else {
+    $(this).toggleClass('enlarge');
+  }
+});
+
+$('body').on('mouseleave', '.dancer', function() {
+  if($(this).hasClass('blinkyDancer')){
+    $(this).css('border-width', '10px');
+    $(this).css('border-radius', '10px');
+  } else {
+    $(this).toggleClass('enlarge');
+  }
+});
+
+
+
 });
 
