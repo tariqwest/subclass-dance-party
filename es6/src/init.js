@@ -21,7 +21,7 @@ $(document).ready(function() {
   });
 
   $('.lineupDancerButton').on('click', function(event) {
-      if(dancerSound){
+      if(dancerSound instanceof Audio){
         dancerSound.pause();
       }
       if($('.unpaired-x')){
@@ -37,7 +37,7 @@ $(document).ready(function() {
     });
 
   $('.pairDancerButton').on('click', function(event) {
-    if(dancerSound){
+    if(dancerSound instanceof Audio){
       dancerSound.pause();
     }
     if($('.unpaired-x')){
@@ -71,7 +71,6 @@ $(document).ready(function() {
 
   $('body').on('mouseenter', '.dancer', function() {
     $(this).toggleClass('enlarge');
-    //dancerSound.pause();
     dancerSound = new Audio($(this).data('sound') + '.mp3');
     dancerSound.addEventListener('ended', function() {
       this.currentTime = 0;
