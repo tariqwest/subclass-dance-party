@@ -12,9 +12,8 @@ var WormDancer = class WormDancer extends Dancer{
 
   // this.oldStep = this.step;
   step() {
+    Dancer.prototype.step.call(this);
     this.$node.toggleClass('wormDancer-hot');
-    var bind = this.step.bind(this);
-    setTimeout(bind, this.timeBetweenSteps);
   }
   
   lineUp(top, left) {

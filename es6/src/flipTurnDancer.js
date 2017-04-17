@@ -6,9 +6,8 @@ var FlipTurnDancer = class FlipTurnDancer extends Dancer{
     }
 
     step(){
+      Dancer.prototype.step.call(this);
       this.$node.toggleClass('.whirl');
-      var bind = this.step.bind(this);
-      setTimeout(bind, this.timeBetweenSteps);
     }
 
     lineUp(top, left){
